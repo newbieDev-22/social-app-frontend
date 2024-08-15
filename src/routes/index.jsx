@@ -18,9 +18,9 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: (
-      <RedirectIfLogged>
-        <LoginPage />
-      </RedirectIfLogged>
+      // <RedirectIfLogged>
+      <LoginPage />
+      // </RedirectIfLogged>
     ),
   },
   { path: "*", element: <Navigate to="/" /> },

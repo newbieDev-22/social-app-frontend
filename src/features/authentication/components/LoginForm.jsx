@@ -33,15 +33,14 @@ export default function LoginForm() {
       const error = validateLogin(input);
       if (error) {
         return setInputError(error);
+      } else {
+        await login(input);
+        navigate("/");
+        toast.success("Login successfully!");
+        setInputError({ ...initialInputError });
       }
-
-      setInputError(initialInputError);
-
-      await login(input);
-      navigate("/");
-      toast.success("Login successfully!");
     } catch (err) {
-      console.log(err);
+      console.error(err);
       if (err instanceof AxiosError) {
         const message =
           err.response.status === 400
