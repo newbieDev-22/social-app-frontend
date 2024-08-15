@@ -1,0 +1,25 @@
+import Spinner from "../../../components/Spinner";
+import useAuth from "../../../hooks/useAuth";
+import usePost from "../../../hooks/usePost";
+import PostItem from "./PostItem";
+
+export default function PostContainer() {
+  const { authUser } = useAuth();
+
+  const { posts, isPostsLoading } = usePost();
+  if (isPostsLoading) return <Spinner />;
+  return (
+    <div>
+      {posts.map((post) => (
+        <PostItem
+          key={post.id}
+          postId={post.id}
+          isCreator={post.userId === authUser.id}
+          creator={post.user.firstName}
+          content={post.message}
+          comments={post.comments}
+        />
+      ))}
+    </div>
+  );
+}

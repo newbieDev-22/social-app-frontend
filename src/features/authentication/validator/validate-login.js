@@ -1,5 +1,5 @@
 import Joi from "joi";
-import validateWrapper from "./validate-wrapper";
+import validateWrapper from "../../../utils/validate-wrapper";
 
 const loginSchema = Joi.object({
   email: Joi.string().required().messages({
