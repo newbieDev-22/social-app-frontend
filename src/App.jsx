@@ -3,10 +3,11 @@ import Router from "./routes";
 import { Suspense } from "react";
 import AuthContextProvider from "./contexts/AuthContext";
 import PostContextProvider from "./contexts/PostContext";
+import Spinner from "./components/Spinner";
 
 export default function App() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<Spinner />}>
       <AuthContextProvider>
         <PostContextProvider>
           <Router />
