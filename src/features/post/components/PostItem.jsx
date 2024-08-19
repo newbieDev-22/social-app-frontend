@@ -7,8 +7,16 @@ import Input from "../../../components/Input";
 import postApi from "../../../apis/post";
 import usePost from "../../../hooks/usePost";
 import { toast } from "react-toastify";
+import { DeleteIcon, EditIcon, SaveIcon } from "../../../icons";
 
-export default function PostItem({ postId, isCreator, creator, content, comments }) {
+export default function PostItem({
+  postId,
+  isCreator,
+  firstName,
+  lastName,
+  content,
+  comments,
+}) {
   const [isEdit, setIsEdit] = useState(false);
   const { handleUpdatePost, handleDeletePost } = usePost();
   const [editContent, setEditContent] = useState(content);
@@ -33,21 +41,39 @@ export default function PostItem({ postId, isCreator, creator, content, comments
   return (
     <div className="shadow-md border border-gray-300 rounded-lg my-4 md:w-3/5 sm: w-4/5 m-auto py-2">
       <div className="flex justify-evenly items-center pt-4">
-        <div className="flex justify-between items-center h-full w-full gap-4 pl-4 pr-8">
-          <Avatar name={creator} />
-          {isEdit ? (
-            <Input value={editContent} onChange={(e) => setEditContent(e.target.value)} />
-          ) : (
-            <p className="w-5/6 px-4 ">{content}</p>
-          )}
-          {isCreator && (
-            <div className="flex gap-2">
-              <Button onClick={handleEdit}>{isEdit ? "Save" : "Edit"}</Button>
-              <Button onClick={handleDelete} bg="red">
-                Delete
-              </Button>
+        <div className="flex flex-col justify-between items-center h-full w-full gap-4 pl-4 pr-8">
+          <div className="flex justify-between items-center h-full w-full gap-4">
+            <div className="flex w-full items-center font-bold text-lg">
+              <Avatar name={firstName} width="px-3" />
+              <h6>
+                {firstName} {lastName}
+              </h6>
             </div>
-          )}
+            {isCreator && (
+              <div className="flex gap-2 justify-center items-center ">
+                {isEdit ? (
+                  <SaveIcon onClick={handleEdit} className={"w-6 h-6"} />
+                ) : (
+                  <EditIcon onClick={handleEdit} className={"w-6 h-6"} />
+                )}
+                <DeleteIcon onClick={handleDelete} className={"w-7 h-7"} />
+              </div>
+            )}
+          </div>
+          <div className="w-full ">
+            {isEdit ? (
+              <Input
+                value={editContent}
+                onChange={(e) => setEditContent(e.target.value)}
+              />
+            ) : (
+              <textarea
+                className="w-full h-full px-4 resize-none focus:outline-none p-2 bg-gray-100 rounded-lg"
+                disabled
+                value={content}
+              ></textarea>
+            )}
+          </div>
         </div>
       </div>
       {comments.length > 0 && (

@@ -15,7 +15,8 @@ export default function PostContainer() {
           key={post.id}
           postId={post.id}
           isCreator={post.userId === authUser.id}
-          creator={post.user.firstName}
+          firstName={post.user.firstName}
+          lastName={post.user.lastName}
           content={post.message}
           comments={post.comments}
         />
